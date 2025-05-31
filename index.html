@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Text Editor</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding-top: 20px;
+      }
+
+      #editor {
+        width: 80%;
+        max-width: 800px;
+        min-height: 600px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        outline: none;
+        line-height: 1.6;
+        font-size: 16px;
+        overflow-y: auto;
+      }
+
+      #editor:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="editor" contenteditable="true" spellcheck="false"></div>
+
+    <script>
+      const editor = document.getElementById("editor");
+      const localStorageKey = "simpleDocContent";
+
+      window.addEventListener("load", () => {
+        const savedContent = localStorage.getItem(localStorageKey);
+        if (savedContent) {
+          editor.innerHTML = savedContent;
+        } else {
+          editor.innerHTML = "<p>Start typing your notes here...</p>";
+        }
+      });
+
+      editor.addEventListener("input", () => {
+        localStorage.setItem(localStorageKey, editor.innerHTML);
+      });
+    </script>
+  </body>
+</html>
